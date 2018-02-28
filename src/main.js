@@ -7,6 +7,9 @@ import 'iview/dist/styles/iview.css';
 
 Vue.use(iView);
 
+
+
+
 new Vue({
     el: '#app',
     router: router,

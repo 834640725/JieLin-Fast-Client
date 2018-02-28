@@ -14,14 +14,14 @@
                     <Form ref="loginForm" :model="form" :rules="rules">
                         <FormItem prop="userName">
                             <Input v-model="form.userName" placeholder="请输入用户名">
-                                <span slot="prepend">
+                            <span slot="prepend">
                                     <Icon :size="16" type="person"></Icon>
                                 </span>
                             </Input>
                         </FormItem>
                         <FormItem prop="password">
                             <Input type="password" v-model="form.password" placeholder="请输入密码">
-                                <span slot="prepend">
+                            <span slot="prepend">
                                     <Icon :size="14" type="locked"></Icon>
                                 </span>
                             </Input>
@@ -37,37 +37,46 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
-export default {
-    data () {
-        return {
-            form: {
-                userName: '',
-                password: ''
-            },
-            rules: {
-                userName: [
-                    { required: true, message: '账号不能为空', trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: '密码不能为空', trigger: 'blur' }
-                ]
-            }
-        };
-    },
-    methods: {
-        handleSubmit () {
-            this.$refs.loginForm.validate((valid) => {
-                if (valid) {
-                    Cookies.set('user', this.form.userName);
-                    this.$router.push({
-                        name: 'home_index'
-                    });
+    import Cookies from 'js-cookie';
+    import {login} from '../api/login';
+
+    export default {
+        data () {
+            return {
+                form: {
+                    userName: '15579870840',
+                    password: '123456'
+                },
+                rules: {
+                    userName: [
+                        {required: true, message: '账号不能为空', trigger: 'blur'}
+                    ],
+                    password: [
+                        {required: true, message: '密码不能为空', trigger: 'blur'}
+                    ]
                 }
-            });
+            };
+        },
+        methods: {
+            handleSubmit () {
+                this.$refs.loginForm.validate((valid) => {
+                    if (valid) {
+                        let accountInfo = {
+                            account: this.form.userName,
+                            password: this.form.password
+                        };
+                        this.$store.dispatch('Login',accountInfo).then(()=>{
+                            this.$router.push({
+                                name: 'home_index'
+                            })
+                        }).catch((e)=>{
+                            console.log(e)
+                        })
+                    }
+                });
+            }
         }
-    }
-};
+    };
 </script>
 
 <style>

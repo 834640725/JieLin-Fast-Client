@@ -1,0 +1,52 @@
+import axios from 'axios';
+import { Message } from 'iview';
+import store from '../store/index'
+import {getToken} from '../store/cache';
+
+let baseUrl = 'http://localhost:8787';
+const service = axios.create({
+    baseURL: baseUrl, // api的base_url
+    timeout: 10000    // 请求超时时间
+});
+service.interceptors.request.use(config => {
+    console.log(store.state.user.token)
+    if (store.state.user.token) {
+        config.headers['Authorization'] = store.state.user.token; // 让每个请求携带自定义token 请根据实际情况自行修改
+    }
+    return config;
+}, error => {
+    // Do something with request error
+    console.log(error + "request拦截器"); // for debug
+    Promise.reject(error);
+});
+// respone拦截器
+service.interceptors.response.use(
+    response => {
+        //code为非0是抛错 可结合自己业务进行修改
+        const res = response.data;
+
+        if (res.status !== 0) {
+            //其他错误码信息提示
+            Message.error({
+                content: res.msg,
+                duration: 4,
+                closable: true
+            })
+            //正式环境需要屏蔽错误消息
+            return Promise.reject(res.msg);
+        } else {
+            return res.data;
+        }
+    },
+    error => {
+        console.log("响应拦截器")
+        console.log('err' + error);// for debug
+        Message.error({
+            content: "服务暂时无法访问，请稍后再试",
+            type: 'error',
+            duration: 4
+        });
+        return Promise.reject(error);
+    }
+)
+export default service;
