@@ -1,10 +1,4 @@
-<p align="center">
-    <a href="https://www.iviewui.com">
-        <img width="200" src="https://file.iviewui.com/logo.svg">
-    </a>
-</p>
-
-# iView-Admin template
+# 基于iView-Admin的springboot + vue快速开发平台
 [![](https://img.shields.io/travis/iview/iview-admin.svg?style=flat-square)](https://travis-ci.org/iview/iview-admin)
 [![vue](https://img.shields.io/badge/vue-2.5.2-brightgreen.svg?style=flat-square)](https://github.com/vuejs/vue)
 [![iview ui](https://img.shields.io/badge/iview-2.7.2-brightgreen.svg?style=flat-square)](https://github.com/iview/iview)
@@ -52,7 +46,6 @@ npm run build
 
 ## Links
 
-- [TalkingData](https://github.com/TalkingData)
 - [iView](https://github.com/iview/iview)
 - [Vue](https://github.com/vuejs/vue)
 - [Webpack](https://github.com/webpack/webpack)
@@ -65,7 +58,3 @@ npm run build
 - 单页
 ![image](https://github.com/iview/iview-admin/raw/template/pic/page.png)
 
-## License
-[MIT](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2016-present, iView
